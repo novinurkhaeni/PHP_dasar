@@ -1,0 +1,9 @@
+1. Buat file dengan nama data_siswa.php
+2. buat dan isi variabel nama siswa, jurusan, alamat
+3. Buat dan isi variabel umur, jumlah saudara
+4. Buat dan isi variabel tinggi badan, nilai rata-rata
+5. Buat dan isi variabel status kelulusan
+6. Buat dan isis variabel array daftar nilai, hobi
+7. Buat variabel null dengan nama ekstrakurikuler
+8. Buat class Siswa dengan property nama, property kelas, method tampilData()
+9. Gunakan echo untuk menampilkan semua variabel dan method tampilData()

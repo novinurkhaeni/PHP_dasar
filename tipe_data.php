@@ -23,7 +23,10 @@ echo "<br>";
 
 // ARRAY = tipe data untuk list/daftar
 $mobil = array("Alphard", "Fortuner", "Yaris");
+$siswa = ["Tesa", "Allea", "Lutfi"];
 var_dump($mobil);
+echo "<br>";
+echo $siswa[0];
 echo "<br>";
 
 // EMPTY = tipe data dengan nilai kosong
@@ -64,7 +67,7 @@ class Car {
     /* function tambahan yang dimiliki class*/
     public function message() {
         // mengembalikan nilai My car is 
-      return "My car is a " . $this->color . " " . $this->model . "!";
+      return "Mobil saya berwarna " . $this->color . " " . $this->model . "!";
     }
   }
   

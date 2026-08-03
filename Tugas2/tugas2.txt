@@ -1,0 +1,32 @@
+1. Buat konstanta:
+BATAS_LULUS = 75
+MIN_KEHADIRAN = 80
+
+2. Buat variabel:
+$nama
+$nilai_tugas
+$nilai_uts
+$nilai_uas
+$kehadiran
+
+3. Buat variabel nilai akhir, lalu isi dengan hasil penjumlahan menggunakan operator aritmatika dengan bobot:
+Tugas = 30%
+UTS = 30%
+UAS = 40%
+
+4. Buat variabel total nilai, lalu isi dengan menggunakan operator penugasan += untuk menghitung jumlah nilai tugas, UTS, dan UAS.
+
+5. Gunakan operator perbandingan untuk membandingkan:
+Nilai akhir dengan BATAS_LULUS (simpan di variabel nilai_lulus)
+Kehadiran dengan MIN_KEHADIRAN (simpan di variabel kehadiran_cukup)
+
+6. Buat vaiabel syarat_lulus, isi dengan menggunakan operator logika && untuk memeriksa apakah:
+nilai_lulus = TRUE dan kehadiran_cukup = false
+
+7. Buat vaiabel perlu_perhatian, isi dengan menggunakan operator logika || untuk memeriksa apakah:
+Nilai akhir < 75
+atau kehadiran < 80
+
+8. Buat variabel tidak_lulus, isi menggunakan operator logika ! untuk membalik hasil perbandingan.
+
+9. Tampilkan seluruh hasil menggunakan echo.

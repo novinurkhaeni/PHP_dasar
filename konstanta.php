@@ -1,4 +1,8 @@
 <?php
+// konstanta mirip dengan variabel.
+// Bedanya variabel bisa diubah dan dihapus.
+// konstanta tidak bisa dirubah dan dihapus.
+// variabel punya scope, konstanta bersifat global.
 // mendefinisikan konstanta
 define ("SEKOLAH", "SMK Ma'arif 9 Kebumen");
 echo SEKOLAH;

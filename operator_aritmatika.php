@@ -1,27 +1,30 @@
 <?php
+// operator aritmatika adalah?
+
 $x = 10;
 $y = 3;
-// penjumlahan
+
+// beri komentar
 $penjumlahan = $x + $y;
 echo $penjumlahan . "<br>";
 
-// pengurangan
+// beri komentar
 $pengurangan = $x - $y;
 echo $pengurangan . "<br>";
 
-// perkalian
+// beri komentar
 $perkalian = $x * $y;
 echo $perkalian . "<br>";
 
-// pembagian
+// beri komentar
 $pembagian = $x / $y;
 printf("%.2f", $pembagian);
 
-// modulus
+// beri komentar
 $modulus = $x % $y;
 echo "<br>" . $modulus . "<br>";
 
-// pangkat
+// beri komentar
 $pangkat = $x ** $y;
 echo $pangkat . "<br>";
 ?>

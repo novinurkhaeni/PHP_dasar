@@ -1,42 +1,43 @@
 <?php
-// membandingakan nilai 
-// tanpa membandingkan tipe data
+// operator perbandingan adalah?
+
+// beri komentar
 $x = 100;
 $y = '100';
 var_dump($x == $y);
 echo "<br>";
 
-// membandingkan nilai dan tipe data
+// beri komentar
 var_dump($x === $y);
 echo "<br>";
 
-// tidak sama dengan
-// tanpa membandingkan tipe data
+// beri komentar
 var_dump($x != $y);
 echo "<br>";
 var_dump($x <> $y);
 echo "<br>";
 
-// tidak sama dengan
-// membandingkan nilai dan tipe data
-var_dump($x !== $y); //true
+// beri komentar
+var_dump($x !== $y);
 echo "<br>";
 
-// lebih besar
+// beri komentar
 $x = 50;
 $y = 70;
 var_dump($x > $y);
 echo "<br>";
-// kurang dari
+
+// beri komentar
 var_dump($x < $y);
 echo "<br>";
 
-// lebih dari sama dengan
+// beri komentar
 $x = 50;
 $y = 50;
 var_dump($x >= $y);
 echo "<br>";
-// kurang dari sama dengan
+
+// beri komentar
 var_dump($x <= $y);
 echo "<br>";
 ?>

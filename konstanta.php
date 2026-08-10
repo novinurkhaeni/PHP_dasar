@@ -8,8 +8,8 @@ define ("SEKOLAH", "SMK Ma'arif 9 Kebumen");
 echo SEKOLAH;
 
 // tidak bisa merubah konstanta
-// define ("SEKOLAH", "SMK Indonesia");
-// echo SEKOLAH;
+define ("SEKOLAH", "SMK Indonesia");
+echo SEKOLAH;
 
 // membuat function
 function myTest() {

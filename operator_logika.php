@@ -4,7 +4,7 @@
 $umur = 18;
 $punya_ktp = "iya";
 
-// beri komentar
+// JIKA KEDUANYA TRUE, HASILNYA TRUE
 $boleh_memilih = $umur >= 17 && $punya_ktp == "iya";
 var_dump($boleh_memilih);
 echo "<br>";

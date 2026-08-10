@@ -1,5 +1,6 @@
 <?php
 // Upload file jawaban di link berikut https://forms.gle/piT3cCNKUJQfGZyN9
+// Berikan komentar apa yang error
 // SOAL 1 - PRE-INCREMENT. APAKAH ADA YANG ERROR? PERBAIKI JIKA ADA!
 $angka = 15;
 echo "Soal 1: " . ++angka . "<br>";

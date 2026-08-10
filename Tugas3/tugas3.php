@@ -24,42 +24,32 @@ echo "Stok setelah dikurangi: " . $stok . "<br>";
 // SOAL 5 - CONCATENATION ASSIGNMENT (.=) APAKAH ADA YANG ERROR? PERBAIKI JIKA ADA!
 $nama_depan = "Budi";
 $nama_belakang = "Santoso";
-
 $nama_depan .= $nama_belakang;
-
 echo "Soal 5: " . $nama_depan . "<br>";
 
 
 // SOAL 6 - CONCATENATION (.) APAKAH ADA YANG ERROR? PERBAIKI JIKA ADA!
 $nama = "Budi";
 $kelas = "XI PPLG";
-
 echo "Soal 6: Nama: " . $nama " - Kelas: " . $kelas . "<br>";
 
 
 // SOAL 7 - TERNARY APAKAH ADA YANG ERROR? PERBAIKI JIKA ADA!
 $nilai = 80;
-
 $status = $nilai >= 75 "Lulus" : "Tidak Lulus";
-
 echo "Soal 7: " . $status . "<br>";
 
 
 // SOAL 8 - TERNARY APAKAH ADA YANG ERROR? PERBAIKI JIKA ADA!
 $umur = 18;
-
 $status_umur = $umur >= 17 ? "Dewasa" "Belum Dewasa";
-
 echo "Soal 8: " . $status_umur . "<br>";
 
 
 // SOAL 9 - NULL COALESCING APAKAH ADA YANG ERROR? PERBAIKI JIKA ADA!
 $username = null;
-
 $nama_user = $username ? "Guest";
-
 echo "Soal 9: Selamat datang, " . $nama_user . "<br>";
-
 
 // SOAL 10 - GABUNGAN OPERATOR APAKAH ADA YANG ERROR? PERBAIKI JIKA ADA!
 $angka = 10;

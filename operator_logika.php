@@ -1,5 +1,5 @@
 <?php
-// operator logika adalah?
+// operator logika adalah membandingkan 2 atau lebih pernyataan bolean
 
 $umur = 18;
 $punya_ktp = "iya";

@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PHP Logic Battle</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #111827, #312e81, #581c87);
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #d1d5db;
+            font-size: 18px;
+        }
+
+        /* SCORE */
+        .score-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .score-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .score-box .label {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .score-box .value {
+            font-size: 25px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* PROGRESS */
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+            color: #d1d5db;
+        }
+
+        .progress {
+            height: 12px;
+            background: #1f2937;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #22c55e, #06b6d4);
+            transition: .4s;
+        }
+
+        /* GAME CARD */
+        .game-card {
+            background: white;
+            color: #111827;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.3);
+        }
+
+        .level {
+            display: inline-block;
+            background: #ede9fe;
+            color: #6d28d9;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            font-size: 25px;
+            font-weight: bold;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* CODE */
+        .code-box {
+            background: #111827;
+            color: #e5e7eb;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .code-box pre {
+            font-family: Consolas, monospace;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .keyword {
+            color: #c084fc;
+        }
+
+        .variable {
+            color: #60a5fa;
+        }
+
+        .string {
+            color: #86efac;
+        }
+
+        /* ANSWERS */
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .answer {
+            padding: 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 15px;
+            background: #f9fafb;
+            cursor: pointer;
+            font-size: 17px;
+            text-align: left;
+            transition: .2s;
+        }
+
+        .answer:hover {
+            border-color: #7c3aed;
+            background: #f5f3ff;
+            transform: translateY(-2px);
+        }
+
+        .answer.correct {
+            border-color: #16a34a;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .answer.wrong {
+            border-color: #dc2626;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* FEEDBACK */
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            display: none;
+            line-height: 1.6;
+        }
+
+        .feedback.correct {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .feedback.wrong {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* BUTTON */
+        .next-btn {
+            display: none;
+            width: 100%;
+            margin-top: 20px;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: #7c3aed;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .next-btn:hover {
+            background: #6d28d9;
+        }
+
+        /* START SCREEN */
+        .start-screen {
+            text-align: center;
+            background: white;
+            color: #111827;
+            padding: 45px 30px;
+            border-radius: 25px;
+        }
+
+        .start-screen .icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+
+        .start-screen h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .start-screen p {
+            color: #6b7280;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .start-btn {
+            padding: 16px 35px;
+            border: none;
+            border-radius: 12px;
+            background: #7c3aed;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .start-btn:hover {
+            background: #6d28d9;
+        }
+
+        /* RESULT */
+        .result {
+            display: none;
+            text-align: center;
+            background: white;
+            color: #111827;
+            border-radius: 25px;
+            padding: 45px 30px;
+        }
+
+        .result-icon {
+            font-size: 70px;
+        }
+
+        .result h2 {
+            font-size: 32px;
+            margin: 15px 0;
+        }
+
+        .final-score {
+            font-size: 50px;
+            font-weight: bold;
+            color: #7c3aed;
+            margin: 15px;
+        }
+
+        .restart-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            background: #7c3aed;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .score-board {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .answers {
+                grid-template-columns: 1fr;
+            }
+
+            .game-card {
+                padding: 20px;
+            }
+
+            .question {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>⚔️ PHP LOGIC BATTLE</h1>
+        <p>Uji kemampuanmu dalam percabangan PHP!</p>
+    </div>
+
+
+    <!-- START SCREEN -->
+    <div class="start-screen" id="startScreen">
+
+        <div class="icon">👨‍💻</div>
+
+        <h2>Siap Menjadi PHP Programmer?</h2>
+
+        <p>
+            Selesaikan tantangan percabangan PHP.
+            Pilih struktur kode yang paling tepat untuk setiap masalah.
+        </p>
+
+        <p>
+            🎯 <b>5 Materi</b> &nbsp;|&nbsp;
+            ❤️ <b>3 Nyawa</b> &nbsp;|&nbsp;
+            ⭐ <b>100 Poin / Soal</b>
+        </p>
+
+        <br>
+
+        <button class="start-btn" onclick="startGame()">
+            🚀 MULAI GAME
+        </button>
+
+    </div>
+
+
+    <!-- SCORE BOARD -->
+    <div id="gameArea" style="display:none;">
+
+        <div class="score-board">
+
+            <div class="score-box">
+                <div class="label">SKOR</div>
+                <div class="value" id="score">0</div>
+            </div>
+
+            <div class="score-box">
+                <div class="label">SOAL</div>
+                <div class="value" id="questionNumber">1/10</div>
+            </div>
+
+            <div class="score-box">
+                <div class="label">NYAWA</div>
+                <div class="value" id="lives">❤️❤️❤️</div>
+            </div>
+
+            <div class="score-box">
+                <div class="label">LEVEL</div>
+                <div class="value" id="levelNumber">1</div>
+            </div>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+        <div class="progress-container">
+
+            <div class="progress-info">
+                <span>Progress</span>
+                <span id="progressText">0%</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+        </div>
+
+
+        <!-- QUESTION -->
+        <div class="game-card">
+
+            <div class="level" id="category">
+                IF
+            </div>
+
+            <div class="question" id="question">
+                Pertanyaan
+            </div>
+
+            <div class="code-box" id="codeBox">
+                <pre id="code"></pre>
+            </div>
+
+            <div class="answers" id="answers"></div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+                Soal Berikutnya →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULT -->
+    <div class="result" id="resultScreen">
+
+        <div class="result-icon" id="resultIcon">
+            🏆
+        </div>
+
+        <h2 id="resultTitle">
+            Game Selesai!
+        </h2>
+
+        <p>Skor akhir kamu:</p>
+
+        <div class="final-score" id="finalScore">
+            0
+        </div>
+
+        <p id="resultMessage"></p>
+
+        <br>
+
+        <button class="restart-btn" onclick="restartGame()">
+            🔄 Main Lagi
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+    =========================================================
+    DATA SOAL
+    =========================================================
+
+    Setiap soal mempunyai:
+
+    category  = materi PHP
+    question  = pertanyaan
+    code      = contoh kode
+    answers   = pilihan jawaban
+    correct   = index jawaban yang benar
+    explanation = penjelasan
+    */
+
+    const questions = [
+
+        {
+            category: "IF",
+            question: "Jika kita hanya ingin menjalankan kode ketika nilai memenuhi satu kondisi, struktur apa yang paling tepat?",
+            code: `<?php
+
+$nilai = 80;
+
+if ($nilai >= 75) {
+    echo "Lulus";
+}`,
+            answers: [
+                "if",
+                "if...else",
+                "switch",
+                "nested if"
+            ],
+            correct: 0,
+            explanation: "IF digunakan ketika kita hanya membutuhkan satu kondisi. Jika kondisi benar, kode dijalankan."
+        },
+
+        {
+            category: "IF",
+            question: "Apa output dari program berikut?",
+            code: `$umur = 17;
+
+if ($umur >= 17) {
+    echo "Boleh membuat SIM";
+}`,
+            answers: [
+                "Boleh membuat SIM",
+                "Tidak boleh membuat SIM",
+                "Error",
+                "Tidak menghasilkan output"
+            ],
+            correct: 0,
+            explanation: "Karena 17 >= 17 bernilai TRUE, maka perintah echo dijalankan."
+        },
+
+        {
+            category: "IF ELSE",
+            question: "Kita ingin menampilkan 'Lulus' jika nilai ≥ 75 dan 'Tidak Lulus' jika kurang dari 75. Struktur yang tepat adalah...",
+            code: `$nilai = 60;
+
+??? {
+    echo "Lulus";
+} ??? {
+    echo "Tidak Lulus";
+}`,
+            answers: [
+                "if ... else",
+                "if saja",
+                "switch ... case",
+                "nested if"
+            ],
+            correct: 0,
+            explanation: "IF ELSE digunakan ketika terdapat dua kemungkinan kondisi: benar atau salah."
+        },
+
+        {
+            category: "IF ELSE",
+            question: "Apa output kode berikut?",
+            code: `$nilai = 60;
+
+if ($nilai >= 75) {
+    echo "Lulus";
+} else {
+    echo "Remedial";
+}`,
+            answers: [
+                "Lulus",
+                "Remedial",
+                "60",
+                "Error"
+            ],
+            correct: 1,
+            explanation: "60 tidak memenuhi kondisi >= 75 sehingga blok ELSE dijalankan."
+        },
+
+        {
+            category: "IF ELSEIF",
+            question: "Untuk menentukan kategori nilai A, B, C, D berdasarkan beberapa rentang nilai, struktur yang paling tepat adalah...",
+            code: `$nilai = 85;
+
+if ($nilai >= 90) {
+    echo "A";
+} elseif ($nilai >= 80) {
+    echo "B";
+} elseif ($nilai >= 70) {
+    echo "C";
+} else {
+    echo "D";
+}`,
+            answers: [
+                "if...elseif...else",
+                "if saja",
+                "switch saja",
+                "nested if saja"
+            ],
+            correct: 0,
+            explanation: "IF ELSEIF cocok untuk memeriksa beberapa kondisi secara berurutan."
+        },
+
+        {
+            category: "IF ELSEIF",
+            question: "Apa output kode berikut?",
+            code: `$nilai = 75;
+
+if ($nilai >= 90) {
+    echo "A";
+} elseif ($nilai >= 80) {
+    echo "B";
+} elseif ($nilai >= 70) {
+    echo "C";
+} else {
+    echo "D";
+}`,
+            answers: [
+                "A",
+                "B",
+                "C",
+                "D"
+            ],
+            correct: 2,
+            explanation: "75 tidak memenuhi >=90 dan >=80, tetapi memenuhi >=70 sehingga outputnya C."
+        },
+
+        {
+            category: "NESTED IF",
+            question: "Apa yang dimaksud dengan Nested IF?",
+            code: `if ($umur >= 17) {
+
+    if ($memilikiKTP) {
+        echo "Boleh mendaftar";
+    }
+
+}`,
+            answers: [
+                "IF di dalam IF",
+                "IF tanpa kondisi",
+                "IF dengan banyak ELSE",
+                "IF yang menggunakan switch"
+            ],
+            correct: 0,
+            explanation: "Nested IF adalah kondisi IF yang berada di dalam kondisi IF lainnya."
+        },
+
+        {
+            category: "NESTED IF",
+            question: "Pada sistem login, kita ingin mengecek username terlebih dahulu, kemudian password. Struktur yang cocok adalah...",
+            code: `if ($username == "admin") {
+
+    if ($password == "12345") {
+        echo "Login berhasil";
+    }
+
+}`,
+            answers: [
+                "Nested IF",
+                "IF saja",
+                "Switch saja",
+                "IF ELSEIF"
+            ],
+            correct: 0,
+            explanation: "Karena pemeriksaan password dilakukan di dalam kondisi username, maka ini adalah Nested IF."
+        },
+
+        {
+            category: "SWITCH",
+            question: "Kapan SWITCH paling cocok digunakan?",
+            code: `$menu = 2;
+
+switch ($menu) {
+
+    case 1:
+        echo "Home";
+        break;
+
+    case 2:
+        echo "Profil";
+        break;
+
+}`,
+            answers: [
+                "Memeriksa satu nilai dengan beberapa pilihan tertentu",
+                "Memeriksa rentang nilai",
+                "Membuat perulangan",
+                "Membuat fungsi"
+            ],
+            correct: 0,
+            explanation: "SWITCH cocok ketika satu variabel dibandingkan dengan beberapa pilihan nilai tertentu."
+        },
+
+        {
+            category: "SWITCH",
+            question: "Apa output dari kode berikut?",
+            code: `$menu = 2;
+
+switch ($menu) {
+
+    case 1:
+        echo "Home";
+        break;
+
+    case 2:
+        echo "Profil";
+        break;
+
+    default:
+        echo "Tidak ditemukan";
+}`,
+            answers: [
+                "Home",
+                "Profil",
+                "Tidak ditemukan",
+                "Error"
+            ],
+            correct: 1,
+            explanation: "Nilai $menu adalah 2, sehingga case 2 dijalankan dan menghasilkan 'Profil'."
+        }
+
+    ];
+
+
+    /*
+    =========================================================
+    VARIABLE GAME
+    =========================================================
+    */
+
+    let currentQuestion = 0;
+
+    let score = 0;
+
+    let lives = 3;
+
+    let answered = false;
+
+
+    /*
+    =========================================================
+    MULAI GAME
+    =========================================================
+    */
+
+    function startGame() {
+
+        document.getElementById("startScreen").style.display = "none";
+
+        document.getElementById("gameArea").style.display = "block";
+
+        currentQuestion = 0;
+
+        score = 0;
+
+        lives = 3;
+
+        loadQuestion();
+    }
+
+
+    /*
+    =========================================================
+    MENAMPILKAN SOAL
+    =========================================================
+    */
+
+    function loadQuestion() {
+
+        answered = false;
+
+        const q = questions[currentQuestion];
+
+        document.getElementById("category").textContent =
+            q.category;
+
+        document.getElementById("question").textContent =
+            q.question;
+
+        document.getElementById("code").textContent =
+            q.code;
+
+        document.getElementById("questionNumber").textContent =
+            `${currentQuestion + 1}/${questions.length}`;
+
+        document.getElementById("levelNumber").textContent =
+            Math.floor(currentQuestion / 2) + 1;
+
+        const progress =
+            (currentQuestion / questions.length) * 100;
+
+        document.getElementById("progressBar").style.width =
+            progress + "%";
+
+        document.getElementById("progressText").textContent =
+            Math.round(progress) + "%";
+
+        updateLives();
+
+        const answersContainer =
+            document.getElementById("answers");
+
+        answersContainer.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+
+            const button = document.createElement("button");
+
+            button.className = "answer";
+
+            button.textContent =
+                `${String.fromCharCode(65 + index)}. ${answer}`;
+
+            button.onclick = () => checkAnswer(index, button);
+
+            answersContainer.appendChild(button);
+
+        });
+
+
+        document.getElementById("feedback").className =
+            "feedback";
+
+        document.getElementById("feedback").innerHTML = "";
+
+        document.getElementById("nextBtn").style.display =
+            "none";
+
+    }
+
+
+    /*
+    =========================================================
+    CEK JAWABAN
+    =========================================================
+    */
+
+    function checkAnswer(selected, button) {
+
+        if (answered) {
+            return;
+        }
+
+        answered = true;
+
+        const q = questions[currentQuestion];
+
+        const buttons =
+            document.querySelectorAll(".answer");
+
+        buttons.forEach(btn => {
+            btn.disabled = true;
+        });
+
+
+        const feedback =
+            document.getElementById("feedback");
+
+
+        if (selected === q.correct) {
+
+            button.classList.add("correct");
+
+            score += 100;
+
+            feedback.className =
+                "feedback correct";
+
+            feedback.innerHTML =
+                `✅ <b>Benar!</b><br>${q.explanation}`;
+
+        } else {
+
+            button.classList.add("wrong");
+
+            buttons[q.correct].classList.add("correct");
+
+            lives--;
+
+            feedback.className =
+                "feedback wrong";
+
+            feedback.innerHTML =
+                `❌ <b>Kurang tepat!</b><br>
+                Jawaban yang benar:
+                <b>${q.answers[q.correct]}</b><br>
+                ${q.explanation}`;
+
+        }
+
+
+        document.getElementById("score").textContent =
+            score;
+
+        updateLives();
+
+
+        if (lives <= 0) {
+
+            setTimeout(() => {
+
+                showResult();
+
+            }, 1500);
+
+            return;
+        }
+
+
+        document.getElementById("nextBtn").style.display =
+            "block";
+
+    }
+
+
+    /*
+    =========================================================
+    SOAL BERIKUTNYA
+    =========================================================
+    */
+
+    function nextQuestion() {
+
+        currentQuestion++;
+
+        if (currentQuestion >= questions.length) {
+
+            showResult();
+
+        } else {
+
+            loadQuestion();
+
+        }
+
+    }
+
+
+    /*
+    =========================================================
+    UPDATE NYAWA
+    =========================================================
+    */
+
+    function updateLives() {
+
+        let hearts = "";
+
+        for (let i = 0; i < lives; i++) {
+            hearts += "❤️";
+        }
+
+        document.getElementById("lives").textContent =
+            hearts || "💀";
+
+    }
+
+
+    /*
+    =========================================================
+    HASIL GAME
+    =========================================================
+    */
+
+    function showResult() {
+
+        document.getElementById("gameArea").style.display =
+            "none";
+
+        document.getElementById("resultScreen").style.display =
+            "block";
+
+        document.getElementById("finalScore").textContent =
+            score;
+
+
+        let title = "";
+
+        let message = "";
+
+        let icon = "";
+
+
+        if (score >= 900) {
+
+            icon = "🏆";
+
+            title = "MASTER PHP!";
+
+            message =
+                "Luar biasa! Kamu sudah sangat memahami percabangan PHP.";
+
+        } else if (score >= 700) {
+
+            icon = "🥇";
+
+            title = "PROGRAMMER HEBAT!";
+
+            message =
+                "Pemahamanmu sudah bagus. Tinggal sedikit latihan lagi.";
+
+        } else if (score >= 500) {
+
+            icon = "🥈";
+
+            title = "GOOD JOB!";
+
+            message =
+                "Kamu sudah memahami dasar percabangan PHP.";
+
+        } else {
+
+            icon = "💪";
+
+            title = "TERUS BERLATIH!";
+
+            message =
+                "Jangan menyerah. Pelajari kembali IF, ELSEIF, Nested IF, dan SWITCH.";
+
+        }
+
+
+        document.getElementById("resultIcon").textContent =
+            icon;
+
+        document.getElementById("resultTitle").textContent =
+            title;
+
+        document.getElementById("resultMessage").textContent =
+            message;
+
+    }
+
+
+    /*
+    =========================================================
+    RESTART
+    =========================================================
+    */
+
+    function restartGame() {
+
+        document.getElementById("resultScreen").style.display =
+            "none";
+
+        document.getElementById("gameArea").style.display =
+            "block";
+
+        currentQuestion = 0;
+
+        score = 0;
+
+        lives = 3;
+
+        loadQuestion();
+
+    }
+
+</script>
+
+</body>
+</html>

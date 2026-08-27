@@ -1,30 +1,31 @@
 <?php
 // operator aritmatika adalah?
+// operator = simbol
+// simbol untuk melakukan operasi dasar matematika
 
 $x = 10;
 $y = 3;
 
-// beri komentar
-$penjumlahan = $x + $y;
+// + untuk simbol penjumlahan
+$penjumlahan = $x + $y; //13
 echo $penjumlahan . "<br>";
 
-// beri komentar
-$pengurangan = $x - $y;
+// - untuk simbol pengurangan
+$pengurangan = $x - $y; //7
 echo $pengurangan . "<br>";
 
-// beri komentar
-$perkalian = $x * $y;
+// * untuk simbol perkalian
+$perkalian = $x * $y; //30
 echo $perkalian . "<br>";
 
-// beri komentar
-$pembagian = $x / $y;
-printf("%.2f", $pembagian);
+// / untuk simbol pembagian
+$pembagian = $x / $y; //3.333333
+printf("%.2f", $pembagian); //print dengan format float 2 digit belakang koma
 
-// beri komentar
-$modulus = $x % $y;
+// % untuk simbol modulus (sisa bagi)
+$modulus = $x % $y; //1
 echo "<br>" . $modulus . "<br>";
 
-// beri komentar
-$pangkat = $x ** $y;
+// ** untuk simbol pangkat
+$pangkat = $x ** $y; //1000
 echo $pangkat . "<br>";
-?>

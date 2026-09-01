@@ -29,3 +29,9 @@ $siswa = [
 foreach($siswa as $item) {
     echo "Nama: " . $item['nama'] . " Nilai: " . $item['nilai'] ."<br>";
 }
+
+foreach($siswa as $item){
+    foreach($item as $key => $value){
+         echo $key . " : " . $value . "<br>";
+    }
+}

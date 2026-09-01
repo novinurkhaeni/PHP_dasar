@@ -60,3 +60,13 @@ echo "5! = " . $hasil . "<br>";
 // Panjang : 5
 // Lebar : 6
 // Luas : 30
+function hitungLuas($panjang, $lebar)
+{
+    $luas = $panjang * $lebar;
+
+    echo "Panjang : $panjang <br>";
+    echo "Lebar   : $lebar <br>";
+    echo "Luas    : $luas";
+}
+
+hitungLuas(5, 6);

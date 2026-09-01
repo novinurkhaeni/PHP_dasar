@@ -1,6 +1,6 @@
 <?php
 // STRING = tipe data untuk teks/karakter
-$nama = 'Novi Nurkhaeni';
+$nama = "SMK MA'ARIF 9 KEBUMEN";
 var_dump($nama);
 echo "<br>";
 
@@ -21,7 +21,7 @@ $lulus = FALSE;
 var_dump($lulus);
 echo "<br>";
 
-// ARRAY = tipe data untuk list/daftar
+// ARRAY = tipe data untuk list/daftar (banyak data)
 $mobil = array("Alphard", "Fortuner", "Yaris");
 $siswa = ["Tesa", "Allea", "Lutfi"];
 var_dump($mobil);
